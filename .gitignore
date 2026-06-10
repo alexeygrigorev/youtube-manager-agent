@@ -1,0 +1,10 @@
+# OAuth secrets, cached token, and per-manifest run state — never commit these.
+.youtube/
+
+# Local working area: source videos, transcripts, clips, captions, chapters.
+work/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

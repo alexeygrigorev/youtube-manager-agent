@@ -1,0 +1,10 @@
+[project]
+name = "youtube-manager-agent"
+version = "0.1.0"
+description = "CLI scripts to download, chop, upload, and organize YouTube videos and playlists via the Data API v3"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "google-api-python-client>=2.197.0",
+    "google-auth-oauthlib>=1.4.0",
+]
