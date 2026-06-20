@@ -29,10 +29,10 @@ Lines are `M:SS text` / `H:MM:SS text` — this is what the cut list is built fr
 ### 2. Get the best-quality source
 
 ```bash
-bash download.sh "https://www.youtube.com/watch?v=<id>" work/videos/<name> 720
+bash bin/download.sh "https://www.youtube.com/watch?v=<id>" work/videos/<name> 720
 ```
 
-A casual download often grabs the *lowest*-bitrate 720p; `download.sh` selects
+A casual download often grabs the *lowest*-bitrate 720p; `bin/download.sh` selects
 the best stream at or below the height cap and merges to mkv. (The true high-res
 master is the original recording, not what YouTube re-encodes.)
 
@@ -54,7 +54,7 @@ source than its final course order.
 ### 4. Chop + normalize
 
 ```bash
-bash chop.sh work/videos/<name>.mkv work/videos/clips <name>.spec <filename-prefix>
+bash bin/chop.sh work/videos/<name>.mkv work/videos/clips <name>.spec <filename-prefix>
 ```
 
 Each clip is re-encoded frame-accurate (`libx264 -preset faster -crf 23
@@ -63,7 +63,7 @@ Each clip is re-encoded frame-accurate (`libx264 -preset faster -crf 23
 with `FFMPEG=/path/to/ffmpeg` if it isn't on `PATH`.
 
 ### 5. Iterate
-To re-cut a lesson, edit its line in the `.spec` and re-run `chop.sh` (or
+To re-cut a lesson, edit its line in the `.spec` and re-run `bin/chop.sh` (or
 regenerate the single clip with a direct `ffmpeg` call). The spec is the source
 of truth.
 
@@ -75,7 +75,7 @@ of truth.
 
 ## Gotchas
 
-- **Never edit `chop.sh` while its batch is running.** Bash re-reads the script
+- **Never edit `bin/chop.sh` while its batch is running.** Bash re-reads the script
   by byte offset as it executes; an edit shifts the offsets and can corrupt the
   run, clobbering already-finished clips. Let the batch finish, or regenerate
   individual clips with standalone `ffmpeg` calls. Editing the `.spec` mid-run
@@ -90,7 +90,7 @@ already accurate and the spec records each clip's exact ranges, so slice the
 transcript into per-clip, clip-relative captions right after chopping:
 
 ```bash
-uv run python clip_transcript.py \
+uv run python -m transcript.clip_transcript \
   --transcript work/transcripts/<name>.txt \
   --spec <name>.spec \
   --out-dir captions
@@ -99,4 +99,4 @@ uv run python clip_transcript.py \
 It handles multi-segment clips (each kept segment shifted by the cumulative
 duration of the ones before it). Turn `captions/<clip>.txt` into
 `chapters/<clip>.txt` (`M:SS Title`, first line `0:00`, ≥3 entries, each ≥10s),
-then inject them with `add_chapters.py`.
+then inject them with `video.add_chapters`.

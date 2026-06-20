@@ -13,7 +13,7 @@ yourself (videos.update) has no such restriction. So the reliable flow is:
      adds the video to the playlist. Re-running is safe (state file + idempotent
      playlist add).
 
-  python rename.py --manifest manifests/part1-manifest.json [--dry-run]
+  python -m video.rename --manifest manifests/part1-manifest.json [--dry-run]
 """
 import argparse
 import json
@@ -23,7 +23,7 @@ from pathlib import Path
 
 from googleapiclient.errors import HttpError
 
-from auth import get_service, SECRETS_DIR
+from auth.auth import get_service, SECRETS_DIR
 
 
 def load_json(path: Path):

@@ -7,7 +7,7 @@ of the filename from "l<NN>" on, e.g. l05-search). It rebuilds each description
 as <base>\\n\\nChapters:\\n<lines> and pushes it via videos.update. Rebuilding
 from the manifest base each run keeps it idempotent.
 
-  python add_chapters.py --manifest manifests/part1-manifest.json \\
+  python -m video.add_chapters --manifest manifests/part1-manifest.json \\
       --chapters-dir work/chapters [--dry-run]
 """
 import argparse
@@ -17,7 +17,7 @@ from pathlib import Path
 
 from googleapiclient.errors import HttpError
 
-from auth import get_service, SECRETS_DIR
+from auth.auth import get_service, SECRETS_DIR
 
 
 def load_json(p: Path):

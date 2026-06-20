@@ -2,7 +2,7 @@
 """Shared YouTube Data API auth.
 
 All credentials and runtime state live in the gitignored `.youtube/` folder
-next to this file:
+at the repo root:
 
   .youtube/client_secret.json   OAuth client (downloaded from Google Cloud)
   .youtube/token.json           cached user token (created on first run)
@@ -20,7 +20,7 @@ from googleapiclient.discovery import build
 # Full read/write scope: needed for videos.insert/update and playlist edits.
 SCOPES = ["https://www.googleapis.com/auth/youtube"]
 
-SECRETS_DIR = Path(__file__).resolve().parent / ".youtube"
+SECRETS_DIR = Path(__file__).resolve().parents[1] / ".youtube"
 DEFAULT_CLIENT_SECRET = SECRETS_DIR / "client_secret.json"
 DEFAULT_TOKEN = SECRETS_DIR / "token.json"
 

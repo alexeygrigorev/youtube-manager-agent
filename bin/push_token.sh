@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Copy the local OAuth token to a remote checkout of this repo.
 #
-# After re-authing here (`uv run python reauth.py --force`), push the fresh
+# After re-authing here (`uv run python -m auth.reauth --force`), push the fresh
 # token to a server that runs the same scripts headlessly.
 #
 # Usage: push_token.sh [host] [remote-repo-path]
@@ -13,10 +13,11 @@ set -euo pipefail
 HOST="${1:-hetzner}"
 REMOTE_DIR="${2:-~/git/youtube-manager-agent}"
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TOKEN="$HERE/.youtube/token.json"
+# repo root is the parent of this script's bin/ dir
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TOKEN="$ROOT/.youtube/token.json"
 
-[ -f "$TOKEN" ] || { echo "no token at $TOKEN -- run reauth.py first" >&2; exit 1; }
+[ -f "$TOKEN" ] || { echo "no token at $TOKEN -- run 'uv run python -m auth.reauth' first" >&2; exit 1; }
 
 ssh "$HOST" "mkdir -p $REMOTE_DIR/.youtube"
 scp "$TOKEN" "$HOST:$REMOTE_DIR/.youtube/token.json"

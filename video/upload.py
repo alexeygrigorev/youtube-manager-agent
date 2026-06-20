@@ -6,7 +6,7 @@ passes a one-time compliance audit. If your project is unaudited, prefer the
 manual-upload + rename.py flow (see README). This script is the end-to-end path
 once your project is audited.
 
-  python upload.py --manifest manifests/part1-manifest.json --videos-dir work/clips
+  python -m video.upload --manifest manifests/part1-manifest.json --videos-dir work/clips
 
 State is written to .youtube/<manifest-stem>-upload-state.json so re-running
 skips already-uploaded clips (useful if the daily upload quota is hit).
@@ -20,7 +20,7 @@ from pathlib import Path
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
-from auth import get_service, SECRETS_DIR
+from auth.auth import get_service, SECRETS_DIR
 
 
 def load_json(path: Path):

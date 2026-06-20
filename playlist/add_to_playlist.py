@@ -11,13 +11,13 @@ the first existing item whose title starts with that text (handy for slotting a
 group of videos into the middle of an ordered playlist).
 
   # append a video to the playlist
-  python add_to_playlist.py --playlist PLxxxx https://youtu.be/7TuZTVwnmhk
+  python -m playlist.add_to_playlist --playlist PLxxxx https://youtu.be/7TuZTVwnmhk
 
   # put a video first (0-based), moving it if it's already in the playlist
-  python add_to_playlist.py --playlist PLxxxx --position 0 <id>
+  python -m playlist.add_to_playlist --playlist PLxxxx --position 0 <id>
 
   # insert several videos before the first item titled "Module 4 ..."
-  python add_to_playlist.py --playlist PLxxxx --before-title "Module 4" id1 id2 id3
+  python -m playlist.add_to_playlist --playlist PLxxxx --before-title "Module 4" id1 id2 id3
 """
 import argparse
 import re
@@ -26,7 +26,7 @@ from pathlib import Path
 
 from googleapiclient.errors import HttpError
 
-from auth import get_service
+from auth.auth import get_service
 
 
 def video_id(s: str) -> str:

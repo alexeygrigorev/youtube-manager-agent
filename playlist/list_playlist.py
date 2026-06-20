@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Dump the items (position, videoId, title) of one or more playlists.
 
-  python list_playlist.py PLxxxx [PLyyyy ...]
+  python -m playlist.list_playlist PLxxxx [PLyyyy ...]
 """
 import argparse
 from pathlib import Path
 
-from auth import get_service
+from auth.auth import get_service
 
 
 def playlist_items(youtube, playlist_id: str):

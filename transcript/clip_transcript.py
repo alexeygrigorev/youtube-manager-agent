@@ -7,7 +7,7 @@ It correctly handles multi-segment clips (where bits were cut from the middle):
 each kept segment is offset by the cumulative duration of the segments before it,
 so timestamps line up with the concatenated clip.
 
-  uv run python clip_transcript.py \
+  uv run python -m transcript.clip_transcript \
     --transcript ../transcripts/module1-agents.txt \
     --spec ../module1-agents.spec \
     --out-dir captions

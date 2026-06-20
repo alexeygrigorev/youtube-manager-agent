@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Check, refresh, or re-create the cached YouTube OAuth token.
 
-  python reauth.py            # check token; auto-refresh if expired, re-consent if dead
-  python reauth.py --check    # check only; never opens a browser or deletes anything
-  python reauth.py --force    # discard the cached token and re-consent from scratch
+  python -m auth.reauth            # check token; auto-refresh if expired, re-consent if dead
+  python -m auth.reauth --check    # check only; never opens a browser or deletes anything
+  python -m auth.reauth --force    # discard the cached token and re-consent from scratch
 
 Apps left in OAuth "Testing" mode get refresh tokens that Google expires after
 7 days, so a weekly `invalid_grant` is normal — just run this to re-auth. (Publish
@@ -19,7 +19,7 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from auth import DEFAULT_CLIENT_SECRET, DEFAULT_TOKEN, SCOPES
+from auth.auth import DEFAULT_CLIENT_SECRET, DEFAULT_TOKEN, SCOPES
 
 
 def _safe_print(s: str) -> None:
