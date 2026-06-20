@@ -20,6 +20,8 @@ of lesson videos, but the pieces are generic and work for any channel.
 | `rename.py` | Match manually-uploaded videos by filename and set title/description/tags/visibility + add to playlist (no upload audit needed). |
 | `upload.py` | Full API upload from a manifest (requires an audited API project — see below). |
 | `add_chapters.py` | Append chapter timecodes to each video's description. |
+| `reauth.py` | Check the cached OAuth token and refresh or re-consent it (see below). |
+| `push_token.sh` | Copy the local OAuth token to a remote checkout of this repo (e.g. a headless server). |
 
 The chopping pipeline (download → spec → chop → captions/chapters) is documented
 separately in [docs/chopping.md](docs/chopping.md).
